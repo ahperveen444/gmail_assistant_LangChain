@@ -1,3 +1,4 @@
+# Imports needed
 from langchain_community.agent_toolkits import GmailToolkit
 from langchain_community.tools.gmail.utils import(
     build_resource_service,
@@ -17,12 +18,14 @@ credentials_gmail = get_gmail_credentials(
 )
 api_resource_gmail = build_resource_service(credentials=credentials_gmail)
 
+# Using Gmail tools using GmailToolkit
 toolkit_gmail = GmailToolkit(api_resource=api_resource_gmail)
 tools_gmail = toolkit_gmail.get_tools()
 
-
+# Defining our model
 model = ChatOpenAI(model = "gpt-3.5-turbo")
 
+# Defining our prompt
 prompt = PromptTemplate(
  template="""You are a professional email assistant. My name is Ali Haider. You will write email in a professional, friendly tone which user will ask you to do. Here is user prompt:
  {query}.
@@ -57,4 +60,5 @@ if response.tool_calls:
         print("Action Completed Successfully")
 else:
     print("No tool calls.")
+
 
